@@ -30,15 +30,15 @@
     //commonJobProperties.setCronJob(delegate, '45 6,18 * * *')
 
 
-    // parameters {
-    //   nodeParam('TEST_HOST') {
-    //     description("Select test host ${machine}")
-    //     defaultNodes([machine])
-    //     allowedNodes([machine])
-    //     trigger('multiSelectionDisallowed')
-    //     eligibility('IgnoreOfflineNodeEligibility')
-    //   }
-    // }
+     parameters {
+       nodeParam('TEST_HOST') {
+         description("Select test host slave")
+         defaultNodes(['slave'])
+         allowedNodes(['slave'])
+         trigger('multiSelectionDisallowed')
+         eligibility('IgnoreOfflineNodeEligibility')
+       }
+     }
 
     steps {
       shell('echo job succeded')
