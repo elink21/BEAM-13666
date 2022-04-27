@@ -15,6 +15,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import hudson.model.*
+import jenkins.model.Jenkins
 
 
 
@@ -42,5 +44,6 @@
 
     steps {
       shell('echo job succeded')
+      shell("${Jenkins.instance.queue}")
     }
   }
