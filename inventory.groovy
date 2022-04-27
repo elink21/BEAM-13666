@@ -36,7 +36,7 @@
          defaultNodes(['35.224.32.77','slave'])
          allowedNodes(['35.224.32.77','slave'])
          trigger('multiSelectionDisallowed')
-         eligibility('IgnoreOfflineNodeEligibility')
+         eligibility('IgnoreTempOfflineNodeEligibility')
        }
      }
 
