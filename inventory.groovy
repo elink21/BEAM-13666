@@ -33,8 +33,8 @@
      parameters {
        nodeParam('TEST_HOST') {
          description("Select test host slave")
-         defaultNodes(['35.224.32.77','slave'])
-         allowedNodes(['35.224.32.77','slave'])
+         defaultNodes(['34.67.166.101','slave'])
+         allowedNodes(['34.67.166.101','slave'])
          trigger('multiSelectionDisallowed')
          eligibility('IgnoreTempOfflineNodeEligibility')
        }
