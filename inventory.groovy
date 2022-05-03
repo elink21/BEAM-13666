@@ -41,6 +41,6 @@
     //  }
 
     steps {
-      shell('echo whoami')
+      shell('whoami')
     }
   }
