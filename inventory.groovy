@@ -42,6 +42,6 @@
 
     steps {
       shell('whoami')
-      shell('sudo su jenkins;whoami')
+      shell('sudo su jenkins | whoami')
     }
   }
