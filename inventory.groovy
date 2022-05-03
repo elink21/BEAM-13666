@@ -43,5 +43,7 @@
     steps {
       shell('whoami')
       shell('sudo su jenkins | whoami')
+      shell('whoami')
+      shell('sudo echo testingSudo')
     }
   }
