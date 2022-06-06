@@ -18,9 +18,7 @@
 /** Facilitates creation of jenkins steps to setup and cleanup Kubernetes infrastructure. */
 class Kubernetes {
 
-  private static final String KUBERNETES_DIR = ''
-
-  private static final String KUBERNETES_SCRIPT = "kubernetes.sh"
+  private static final String KUBERNETES_SCRIPT = "./kubernetes.sh"
 
   private static final String DEFAULT_CLUSTER = 'io-datastores'
 
@@ -112,7 +110,8 @@ class Kubernetes {
   void availablePort(String lowRangePort, String highRangePort, String referenceName) {
     job.steps {
       String command = "${KUBERNETES_SCRIPT} getAvailablePort ${lowRangePort} ${highRangePort}"
-      shell("set -o; eval ${command} | sed 's/^/${referenceName}=/' > job.properties")
+      println command
+      shell("set pipefail -o; eval ${command} | sed 's/^/${referenceName}=/' > job.properties")
       environmentVariables {
         propertiesFile('job.properties')
       }
