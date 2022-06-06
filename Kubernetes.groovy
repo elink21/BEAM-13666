@@ -50,9 +50,8 @@ class Kubernetes {
   static Kubernetes create(job, String kubeconfigLocation, String namespace = '',
       String cluster = DEFAULT_CLUSTER) {
     Kubernetes kubernetes = new Kubernetes(job, kubeconfigLocation, namespace, cluster)
-    setupKubeconfig()
-    setupNamespace()
-    addCleanupSteps()
+    //setupKubeconfig()
+    //setupNamespace()
     return kubernetes
   }
 
