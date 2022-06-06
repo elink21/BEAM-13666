@@ -34,11 +34,12 @@ job(jobName) {
   // Select available ports for services and avoid collisions
   steps {
     String[] configuredPorts = ["32400", "32401", "32402"]
-    (0..2).each { service ->
+    (0..1).each { service ->
       k8s.availablePort(service == 0 ? configuredPorts[service]: "\$KAFKA_SERVICE_PORT_${service-1}",
           HIGH_RANGE_PORT, "KAFKA_SERVICE_PORT_$service")
-      //shell("sed -i -e s/${configuredPorts[service]}/\$KAFKA_SERVICE_PORT_$service/ \
-             //     ${kafkaDir}/04-outside-services/outside-${service}.yml")
+      shell("sed -i -e s/${configuredPorts[service]}/\$KAFKA_SERVICE_PORT_$service/ \
+            $WORKSPACE/outside-${service}.yml")
+      shell("cat $WORKSPACE/outside-0.yml")
     }
   }
   //k8s.apply(kafkaDir)

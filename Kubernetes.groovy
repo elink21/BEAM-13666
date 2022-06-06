@@ -18,9 +18,9 @@
 /** Facilitates creation of jenkins steps to setup and cleanup Kubernetes infrastructure. */
 class Kubernetes {
 
-  private static final String KUBERNETES_DIR = '"$WORKSPACE"'
+  private static final String KUBERNETES_DIR = '"$WORKSPACE/"'
 
-  private static final String KUBERNETES_SCRIPT = "${KUBERNETES_DIR}/kubernetes.sh"
+  private static final String KUBERNETES_SCRIPT = "${KUBERNETES_DIR}kubernetes.sh"
 
   private static final String DEFAULT_CLUSTER = 'io-datastores'
 
@@ -81,7 +81,7 @@ class Kubernetes {
    */
   void apply(String pathToScript) {
     job.steps {
-      shell("${KUBERNETES_SCRIPT} apply ${pathToScript}")
+      shell("${KUBERNETES_SCRIPT} apply -f ${pathToScript} --dry-run=client")
     }
   }
 

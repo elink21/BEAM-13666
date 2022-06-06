@@ -56,7 +56,7 @@ function retry() {
 #
 # Usage: ./kubernetes.sh apply <path to .yaml file or directory with .yaml files>
 function apply() {
-  eval "$KUBECTL apply -R -f $1"
+  eval "$KUBECTL apply -f $1 --dry-run=client"
 }
 
 # Invokes "kubectl delete" using specified kubeconfig and namespace.
