@@ -95,7 +95,7 @@ class Kubernetes {
   void loadBalancerIP(String serviceName, String referenceName) {
     job.steps {
       String command = "${KUBERNETES_SCRIPT} loadBalancerIP ${serviceName}"
-      shell("set -eo pipefail; eval ${command} | sed 's/^/${referenceName}=/' > job.properties")
+      shell("set -o pipefail; eval ${command} | sed 's/^/${referenceName}=/' > job.properties")
       environmentVariables {
         propertiesFile('job.properties')
       }
@@ -113,7 +113,7 @@ class Kubernetes {
     job.steps {
       String command = "${KUBERNETES_SCRIPT} getAvailablePort ${lowRangePort} ${highRangePort}"
       println command
-      shell("set -eo pipefail; eval ${command} | sed 's/^/${referenceName}=/' > job.properties")
+      shell("set -o pipefail; eval ${command} | sed 's/^/${referenceName}=/' > job.properties")
       environmentVariables {
         propertiesFile('job.properties')
       }
