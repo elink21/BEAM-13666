@@ -113,7 +113,7 @@ class Kubernetes {
     job.steps {
       String command = "${KUBERNETES_SCRIPT} getAvailablePort ${lowRangePort} ${highRangePort}"
       println command
-      shell("set -o pipefail; eval ${command} | sed 's/^/${referenceName}=/' > job.properties")
+      shell("set -o pipefail; eval ${command} | sed 's/$a/${referenceName}=/' > job.properties")
       environmentVariables {
         propertiesFile('job.properties')
       }
