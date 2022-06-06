@@ -29,7 +29,7 @@ job(jobName) {
   String kubeconfig = ""
   Kubernetes k8s = Kubernetes.create(delegate, kubeconfig, namespace)
 
-  String kafkaDir = common.makePathAbsolute("src/.test-infra/kubernetes/kafka-cluster")
+  //String kafkaDir = common.makePathAbsolute("src/.test-infra/kubernetes/kafka-cluster")
 
   // Select available ports for services and avoid collisions
   steps {

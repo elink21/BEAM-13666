@@ -18,7 +18,7 @@
 /** Facilitates creation of jenkins steps to setup and cleanup Kubernetes infrastructure. */
 class Kubernetes {
 
-  private static final String KUBERNETES_DIR = '"$WORKSPACE/src/.test-infra/kubernetes"'
+  private static final String KUBERNETES_DIR = ''
 
   private static final String KUBERNETES_SCRIPT = "kubernetes.sh"
 
@@ -73,36 +73,6 @@ class Kubernetes {
         environmentVariables {
           env('KUBERNETES_NAMESPACE', namespace)
         }
-      }
-    }
-  }
-
-  private static void addCleanupSteps() {
-    job.publishers {
-      postBuildScript {
-        buildSteps {
-          postBuildStep {
-            stopOnFailure(false)
-            results([
-              'FAILURE',
-              'SUCCESS',
-              'UNSTABLE',
-              'NOT_BUILT',
-              'ABORTED'
-            ])
-            buildSteps {
-              if (!namespace.isEmpty()) {
-                shell {
-                  command("${KUBERNETES_SCRIPT} deleteNamespace ${namespace}")
-                }
-              }
-              shell {
-                command("rm ${kubeconfigLocation}")
-              }
-            }
-          }
-        }
-        markBuildUnstable(false)
       }
     }
   }
