@@ -18,7 +18,7 @@
 /** Facilitates creation of jenkins steps to setup and cleanup Kubernetes infrastructure. */
 class Kubernetes {
 
-  private static final String KUBERNETES_SCRIPT = "./kubernetes.sh"
+  private static final String KUBERNETES_SCRIPT = "$WORKSPACE/kubernetes.sh"
 
   private static final String DEFAULT_CLUSTER = 'io-datastores'
 
