@@ -94,7 +94,7 @@ function loadBalancerIP() {
 #
 # Usage: ./kubernetes.sh getAvailablePort <low range port> <high range port>
 function getAvailablePort() {
-  echo "888"
+  echo "30000"
   return 0
   local lowRangePort=$1
   local highRangePort=$2
