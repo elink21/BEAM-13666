@@ -56,7 +56,7 @@ function retry() {
 #
 # Usage: ./kubernetes.sh apply <path to .yaml file or directory with .yaml files>
 function apply() {
-  eval "kubect apply -f $1 -n test-namespace"
+  eval "kubectl apply -f $1 -n test-namespace"
 }
 
 # Invokes "kubectl delete" using specified kubeconfig and namespace.
@@ -94,8 +94,7 @@ function loadBalancerIP() {
 #
 # Usage: ./kubernetes.sh getAvailablePort <low range port> <high range port>
 function getAvailablePort() {
-  echo "30000"
-  return 0
+
   local lowRangePort=$1
   local highRangePort=$2
   local used=false
