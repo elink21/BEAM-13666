@@ -47,7 +47,7 @@ job(jobName) {
       //k8s.apply("${kafkaDir}/outside-${service}.yaml")
     }
 
-    shell("echo '\$KAFKA_SERVICE_PORT_0'")
+    shell("echo $KAFKA_SERVICE_PORT_0")
   }
 
   
