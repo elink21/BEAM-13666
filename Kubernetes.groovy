@@ -81,7 +81,7 @@ class Kubernetes {
    */
   void apply(String pathToScript) {
     job.steps {
-      shell("${KUBERNETES_SCRIPT} apply -f ${pathToScript} --dry-run=client")
+      shell("${KUBERNETES_SCRIPT} apply ${pathToScript}")
     }
   }
 

@@ -25,7 +25,7 @@ set -euxo pipefail
 
 KUBECONFIG="${KUBECONFIG:=$HOME/.kube/config}"
 KUBERNETES_NAMESPACE="${KUBERNETES_NAMESPACE:=default}"
-KUBECTL="kubectl --kubeconfig=$KUBECONFIG --namespace=test-namespace"
+KUBECTL="kubectl"
 
 function retry() {
   local command=$1
@@ -56,7 +56,7 @@ function retry() {
 #
 # Usage: ./kubernetes.sh apply <path to .yaml file or directory with .yaml files>
 function apply() {
-  eval "$KUBECTL apply -f $1 -n test-namespace"
+  eval "kubect apply -f $1 -n test-namespace"
 }
 
 # Invokes "kubectl delete" using specified kubeconfig and namespace.
@@ -94,7 +94,7 @@ function loadBalancerIP() {
 #
 # Usage: ./kubernetes.sh getAvailablePort <low range port> <high range port>
 function getAvailablePort() {
-  echo "777"
+  echo "888"
   return 0
   local lowRangePort=$1
   local highRangePort=$2
