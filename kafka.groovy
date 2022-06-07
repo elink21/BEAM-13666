@@ -20,6 +20,7 @@ import Kubernetes
 
 String jobName = "beam_PerformanceTests_Kafka_IO"
 String HIGH_RANGE_PORT = "32767"
+String kafkaDir=
 
 job(jobName) {
   // TODO(BEAM-9482): Re-enable once fixed.
@@ -29,17 +30,18 @@ job(jobName) {
   String kubeconfig = ""
   Kubernetes k8s = Kubernetes.create(delegate, kubeconfig, namespace)
 
-  //String kafkaDir = common.makePathAbsolute("src/.test-infra/kubernetes/kafka-cluster")
+  String kafkaDir = "$WORKSPACE"
 
   // Select available ports for services and avoid collisions
   steps {
     String[] configuredPorts = ["32400", "32401", "32402"]
     (0..1).each { service ->
       k8s.availablePort(service == 0 ? configuredPorts[service]: "\$KAFKA_SERVICE_PORT_${service-1}",
-          HIGH_RANGE_PORT, "KAFKA_SERVICE_PORT_0")
+          HIGH_RANGE_PORT, "KAFKA_SERVICE_PORT_${service}")
       shell("sed -i -e s/${configuredPorts[service]}/\$KAFKA_SERVICE_PORT_$service/ \
             $WORKSPACE/outside-${service}.yaml")
-      shell("cat $WORKSPACE/outside-0.yaml")
+      shell("cat ${kafkaDir}/outside-${service}.yaml")
+      k8s.apply("${kafkaDir}/outside-${service}.yml")
     }
   }
   //k8s.apply(kafkaDir)
