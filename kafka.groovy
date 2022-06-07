@@ -44,8 +44,8 @@ job(jobName) {
             $WORKSPACE/outside-${service}.yaml")
       
       shell("cat ${kafkaDir}/outside-${service}.yaml")
-      previousAvailablePort= $KAFKA_SERVICE_PORT_$service as Integer;
-      previousAvailablePort+=1;
+      previousAvailablePort = $KAFKA_SERVICE_PORT_$service as Integer
+      previousAvailablePort += 1
       //k8s.apply("${kafkaDir}/outside-${service}.yaml")
     }
   }
