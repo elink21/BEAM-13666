@@ -35,9 +35,9 @@ job(jobName) {
   // Select available ports for services and avoid collisions
   steps {
     String[] configuredPorts = ["32400", "32401", "32402"]
-    def previousAvailablePort=0;
+    
     (0..1).each { service -> 4
-      k8s.availablePort(service == 0 ? configuredPorts[service]: "${previousAvailablePort}",
+      k8s.availablePort(configuredPorts[service],
           HIGH_RANGE_PORT, "KAFKA_SERVICE_PORT_${service}")
       
       shell("sed -i -e s/${configuredPorts[service]}/\$KAFKA_SERVICE_PORT_$service/ \
