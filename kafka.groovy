@@ -36,7 +36,7 @@ job(jobName) {
   steps {
     String[] configuredPorts = ["32400", "32401", "32402"]
     def previousAvailablePort=0;
-    (0..1).each { service ->4
+    (0..1).each { service -> 4
       k8s.availablePort(service == 0 ? configuredPorts[service]: "${previousAvailablePort}",
           HIGH_RANGE_PORT, "KAFKA_SERVICE_PORT_${service}")
       
@@ -44,9 +44,7 @@ job(jobName) {
             $WORKSPACE/outside-${service}.yaml")
       
       shell("cat ${kafkaDir}/outside-${service}.yaml")
-      previousAvailablePort = env.KAFKA_SERVICE_PORT_0 as Integer
-      previousAvailablePort += 1
-      //k8s.apply("${kafkaDir}/outside-${service}.yaml")
+      k8s.apply("${kafkaDir}/outside-${service}.yaml")
     }
   }
   //k8s.apply(kafkaDir)
