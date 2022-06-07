@@ -48,7 +48,7 @@ job(jobName) {
     }
   }
 
-  shell("echo '$KAFKA_SERVICE_PORT_0'")
+  shell("echo \$KAFKA_SERVICE_PORT_0")
   //k8s.apply(kafkaDir)
   //(0..2).each { k8s.loadBalancerIP("outside-$it", "KAFKA_BROKER_$it") }
 
