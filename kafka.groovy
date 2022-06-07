@@ -46,9 +46,11 @@ job(jobName) {
       shell("cat ${kafkaDir}/outside-${service}.yaml")
       //k8s.apply("${kafkaDir}/outside-${service}.yaml")
     }
+
+    shell("echo '\$KAFKA_SERVICE_PORT_0")
   }
-  shell("sed -i -e s/32400/\$KAFKA_SERVICE_PORT_0/ \
-            $WORKSPACE/outside-0.yaml")
+
+  
   //k8s.apply(kafkaDir)
   //(0..2).each { k8s.loadBalancerIP("outside-$it", "KAFKA_BROKER_$it") }
 
