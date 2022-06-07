@@ -36,8 +36,8 @@ job(jobName) {
   steps {
     String[] configuredPorts = ["32400", "32401", "32402"]
     def previousAvailablePort=0;
-    (0..1).each { service ->
-      k8s.availablePort(service == 0 ? configuredPorts[service]: "\$KAFKA_SERVICE_PORT_${service-1}",
+    (0..1).each { service ->4
+      k8s.availablePort(service == 0 ? configuredPorts[service]: "${previousAvailablePort}",
           HIGH_RANGE_PORT, "KAFKA_SERVICE_PORT_${service}")
       
       shell("sed -i -e s/${configuredPorts[service]}/\$KAFKA_SERVICE_PORT_$service/ \
@@ -48,7 +48,7 @@ job(jobName) {
       //k8s.apply("${kafkaDir}/outside-${service}.yaml")
     }
   }
-  k8s.apply(kafkaDir)
+  //k8s.apply(kafkaDir)
   //(0..2).each { k8s.loadBalancerIP("outside-$it", "KAFKA_BROKER_$it") }
 
  
