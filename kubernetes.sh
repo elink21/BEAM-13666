@@ -25,7 +25,7 @@ set -euxo pipefail
 
 KUBECONFIG="${KUBECONFIG:=$HOME/.kube/config}"
 KUBERNETES_NAMESPACE="${KUBERNETES_NAMESPACE:=default}"
-KUBECTL="kubectl --kubeconfig=$KUBECONFIG --namespace=$KUBERNETES_NAMESPACE"
+KUBECTL="kubectl --kubeconfig=$KUBECONFIG --namespace=test-namespace"
 
 function retry() {
   local command=$1
@@ -94,7 +94,8 @@ function loadBalancerIP() {
 #
 # Usage: ./kubernetes.sh getAvailablePort <low range port> <high range port>
 function getAvailablePort() {
-  return 23434
+  echo "777"
+  return 0
   local lowRangePort=$1
   local highRangePort=$2
   local used=false
@@ -118,7 +119,6 @@ function getAvailablePort() {
     else
       return $availablePort
     fi
-    echo $availablePort
   done
 }
 

@@ -41,7 +41,7 @@ job(jobName) {
       shell("sed -i -e s/${configuredPorts[service]}/\$KAFKA_SERVICE_PORT_$service/ \
             $WORKSPACE/outside-${service}.yaml")
       shell("cat ${kafkaDir}/outside-${service}.yaml")
-      k8s.apply("${kafkaDir}/outside-${service}.yml")
+      //k8s.apply("${kafkaDir}/outside-${service}.yml")
     }
   }
   //k8s.apply(kafkaDir)
