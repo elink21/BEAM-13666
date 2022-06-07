@@ -43,7 +43,7 @@ job(jobName) {
             $WORKSPACE/outside-${service}.yaml")
       
       shell("cat ${kafkaDir}/outside-${service}.yaml")
-      k8s.apply("${kafkaDir}/outside-${service}.yml")
+      k8s.apply("${kafkaDir}/outside-${service}.yaml")
     }
   }
   //k8s.apply(kafkaDir)
