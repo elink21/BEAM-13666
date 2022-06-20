@@ -125,9 +125,9 @@ class Kubernetes {
         propertiesFile('job.properties')
       }
 
-      environmentVariables{
+      /*environmentVariables{
         propertiesFile("b.properties")
-      }
+      }*/
 
     }
   }
