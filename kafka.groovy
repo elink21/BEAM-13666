@@ -46,7 +46,7 @@ job(jobName) {
     def value = "\$KAFKA_SERVICE_PORT_${previous}" + 1;
 
     shell("echo the value is ${value}")
-    k8s.availablePort(0,
+    k8s.availablePort("0",
           HIGH_RANGE_PORT, "KAFKA_SERVICE_PORT_$service")
             
       shell("sed -i -e s/${configuredPorts[service]}/\$KAFKA_SERVICE_PORT_$service/ \
