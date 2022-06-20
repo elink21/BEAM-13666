@@ -37,9 +37,6 @@ job(jobName) {
     String[] configuredPorts = ["32400", "32401", "32402"]
     
     (0..2).each { service -> 
-
-    (service!=0)? shell("echo latest port is \$LATEST_PORT"): shell("echo zero-index")
-
     k8s.availablePort(service==0? configuredPorts[service]: "\$LATEST_PORT", 
     HIGH_RANGE_PORT, "KAFKA_SERVICE_PORT_$service")
             
