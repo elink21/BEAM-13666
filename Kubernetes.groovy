@@ -114,14 +114,16 @@ class Kubernetes {
       String command = "${KUBERNETES_SCRIPT} getAvailablePort ${lowRangePort} ${highRangePort}"
       String latestPortCmd= "${KUBERNETES_SCRIPT} nextPort \$(eval ${command})"
       println command
-      shell("set -xo pipefail; eval ${command} | sed 's/^/${referenceName}=/' > job.properties; echo PORT=; cat job.properties")
+      shell("set -xo pipefail; eval ${command} | sed 's/^/${referenceName}=/' > job.properties")
   
-      shell("set -xo pipefail;eval ${latestPortCmd}| sed 's/^/NEXT_${referenceName}=/' > b.properties;echo Latest:; cat b.properties ")
+      shell("set -xo pipefail;eval ${latestPortCmd}| sed 's/^/NEXT_${referenceName}=/' > b.properties; cat b.properties >> job.properties ")
+
+      shell("cat job.properties")
       
       environmentVariables {
         propertiesFile('job.properties')
-        propertiesFile("b.properties")
       }
+
     }
   }
 }
