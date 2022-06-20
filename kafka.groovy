@@ -37,7 +37,7 @@ job(jobName) {
     String[] configuredPorts = ["32400", "32401", "32402"]
     
     (0..2).each { service -> 
-    k8s.availablePort(service==0? configuredPorts[service]: "\$LATEST_PORT", 
+    k8s.availablePort(service==0? configuredPorts[service]: "\$NEXT_KAFKA_SERVICE_PORT_$service", 
     HIGH_RANGE_PORT, "KAFKA_SERVICE_PORT_$service")
             
       shell("sed -i -e s/${configuredPorts[service]}/\$KAFKA_SERVICE_PORT_$service/ \
