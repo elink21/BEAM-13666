@@ -36,7 +36,7 @@ job(jobName) {
   steps {
     String[] configuredPorts = ["32400", "32401", "32402"]
     
-    (0..3).each { service -> 
+    (0..2).each { service -> 
     k8s.availablePort(configuredPorts[service],
           HIGH_RANGE_PORT, "KAFKA_SERVICE_PORT_${service}")
       
