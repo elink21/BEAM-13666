@@ -40,7 +40,8 @@ job(jobName) {
 
     (service!=0)? shell("echo latest port is \$LATEST_PORT"): shell("echo zero-index")
 
-    k8s.availablePort("0", HIGH_RANGE_PORT, "KAFKA_SERVICE_PORT_$service")
+    k8s.availablePort(service==0? configuredPorts[service]: "\$LATEST_PORT", 
+    HIGH_RANGE_PORT, "KAFKA_SERVICE_PORT_$service")
             
       shell("sed -i -e s/${configuredPorts[service]}/\$KAFKA_SERVICE_PORT_$service/ \
             $WORKSPACE/outside-${service}.yaml")
