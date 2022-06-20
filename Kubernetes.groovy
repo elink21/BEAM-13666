@@ -112,7 +112,7 @@ class Kubernetes {
   void availablePort(String lowRangePort, String highRangePort, String referenceName) {
     job.steps {
       String command = "${KUBERNETES_SCRIPT} getAvailablePort ${lowRangePort} ${highRangePort}"
-      String latestPortCmd= "${KUBERNETES_SCRIPT} getNextPort \$(eval ${command})"
+      String latestPortCmd= "${KUBERNETES_SCRIPT} nextPort \$(eval ${command})"
       println command
       shell("set -xo pipefail; eval ${command} | sed 's/^/${referenceName}=/' > job.properties")
   
