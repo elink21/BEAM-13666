@@ -38,9 +38,10 @@ job(jobName) {
     
     (0..2).each { service -> 
     def previous= service-1;
-    shell("echo ${previous}")
     k8s.availablePort(service == 0 ? configuredPorts[service] : "\$KAFKA_SERVICE_PORT_${previous}",
           HIGH_RANGE_PORT, "KAFKA_SERVICE_PORT_$service")
+      
+      shell("echo \$KAFKA_SERVICE_PORT_${previous}")  
       
       shell("sed -i -e s/${configuredPorts[service]}/\$KAFKA_SERVICE_PORT_$service/ \
             $WORKSPACE/outside-${service}.yaml")
