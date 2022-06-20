@@ -121,4 +121,9 @@ function getAvailablePort() {
   done
 }
 
+function getNextPort(){
+  echo $(($1 + 1))
+  return 0
+}
+
 "$@"

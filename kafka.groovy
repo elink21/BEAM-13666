@@ -38,12 +38,12 @@ job(jobName) {
     
     (0..2).each { service -> 
     
-    def previous=  "\$KAFKA_SERVICE_PORT_${service}" - 1;
+    def previous=  "\$KAFKA_SERVICE_PORT_${service} - 1";
     
     shell("echo the previous is ${previous}")
     
     
-    def value = "\$KAFKA_SERVICE_PORT_${previous}" + 1;
+    def value = "\$KAFKA_SERVICE_PORT_${previous} + 1";
 
     shell("echo the value is ${value}")
     k8s.availablePort("0",
