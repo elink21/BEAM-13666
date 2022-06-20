@@ -112,11 +112,11 @@ class Kubernetes {
   void availablePort(String lowRangePort, String highRangePort, String referenceName) {
     job.steps {
       String command = "${KUBERNETES_SCRIPT} getAvailablePort ${lowRangePort} ${highRangePort}"
-
+      String latestPortCmd= "${KUBERNETES_SCRIPT} getNextPort $(eval ${command})"
       println command
       shell("set -xo pipefail; eval ${command} | sed 's/^/${referenceName}=/' > job.properties")
-      
-      shell("set -xo pipefail; actualPort=$( eval ${command} );echo $actualPort; ${KUBERNETES_SCRIPT} getNextPort actualPort | sed 's/^/LATEST_PORT=/' > b.properties ")
+  
+      shell("set -xo pipefail;eval ${latestPortCmd}| sed 's/^/LATEST_PORT=/' > b.properties ")
       
       environmentVariables {
         propertiesFile('job.properties')
