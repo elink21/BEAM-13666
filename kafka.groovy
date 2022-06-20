@@ -43,16 +43,13 @@ job(jobName) {
     shell("echo the value is ${value}")
     k8s.availablePort(value,
           HIGH_RANGE_PORT, "KAFKA_SERVICE_PORT_$service")
-      
-      shell("echo \$KAFKA_SERVICE_PORT_${previous}")  
-      
+            
       shell("sed -i -e s/${configuredPorts[service]}/\$KAFKA_SERVICE_PORT_$service/ \
             $WORKSPACE/outside-${service}.yaml")
       
       shell("cat ${kafkaDir}/outside-${service}.yaml")
     }
 
-    shell("echo \$KAFKA_SERVICE_PORT_0")
   }
 
   k8s.apply(kafkaDir)
