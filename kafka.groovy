@@ -38,7 +38,9 @@ job(jobName) {
     
     (0..2).each { service -> 
     def previous= (service==0)? 0: "\$KAFKA_SERVICE_PORT_${service}"-1;
+    shell("echo ${previous}")
     def value = (service==0)? configuredPorts[service]:  "\$KAFKA_SERVICE_PORT_${previous}"+1;
+    shell("echo ${value}")
     k8s.availablePort(value,
           HIGH_RANGE_PORT, "KAFKA_SERVICE_PORT_$service")
       
