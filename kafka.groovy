@@ -39,7 +39,7 @@ job(jobName) {
     (0..2).each { service -> 
 
     (service==0) ?shell("echo zero-index"): shell("echo \$KAFKA_SERVICE_PORT_${service} ---- \$NEXT_KAFKA_SERVICE_PORT_${service}")
-    k8s.availablePort(service==0? configuredPorts[service]: "\$NEXT_PORT, 
+    k8s.availablePort(service==0? configuredPorts[service]: "\$NEXT_PORT", 
     HIGH_RANGE_PORT, "KAFKA_SERVICE_PORT_$service")
             
       shell("sed -i -e s/${configuredPorts[service]}/\$KAFKA_SERVICE_PORT_$service/ \
