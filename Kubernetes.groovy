@@ -116,7 +116,7 @@ class Kubernetes {
       println command
       shell("set -xo pipefail; eval ${command} | sed 's/^/${referenceName}=/' > job.properties")
   
-      shell("set -xo pipefail;eval ${latestPortCmd}| sed 's/^/NEXT_${referenceName}=/' > b.properties ")
+      shell("set -xo pipefail;eval ${latestPortCmd}| sed 's/^/NEXT_PORT=/' > b.properties ")
 
       shell("cat job.properties")
       shell("cat b.properties")
