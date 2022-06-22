@@ -51,8 +51,9 @@ job(jobName) {
   }
 
   k8s.apply(kafkaDir)
+  k8s.waitForKafkaTopic()
 
-  
+  k8s.nextStep()  
   //(0..2).each { k8s.loadBalancerIP("outside-$it", "KAFKA_BROKER_$it") }
 
  

@@ -109,6 +109,21 @@ class Kubernetes {
    * @param highRangePort - high range port to be used
    * @param referenceName - name of the environment variable
    */
+
+  void waitForKafkaTopic(){
+    job.steps{
+      String command= "${KUBERNETES_SCRIPT} waitForKafkaTopic";
+      shell("eval ${command}")
+    }
+  }
+
+  void nextStep(){
+    job.steps{
+      shell("echo NextStep")
+    }
+  }
+  
+  
   void availablePort(String lowRangePort, String highRangePort, String referenceName) {
     job.steps {
       String command = "${KUBERNETES_SCRIPT} getAvailablePort ${lowRangePort} ${highRangePort}"
@@ -116,7 +131,7 @@ class Kubernetes {
       println command
       shell("set -xo pipefail; eval ${command} | sed 's/^/${referenceName}=/' > job.properties")
   
-      shell("set -xo pipefail;eval ${latestPortCmd}| sed 's/^/NEXT_PORT=/' > b.properties ")
+      shell("set -xo pipefail; eval ${latestPortCmd}| sed 's/^/NEXT_PORT=/' > b.properties ")
 
       shell("cat job.properties")
       shell("cat b.properties")
