@@ -30,7 +30,7 @@ job(jobName) {
   String kubeconfig = ""
   Kubernetes k8s = Kubernetes.create(delegate, kubeconfig, namespace)
 
-  String kafkaDir = "$WORKSPACE/kafka-cluster/"
+  String kafkaDir = "$WORKSPACE/kafka-cluster"
 
   // Select available ports for services and avoid collisions
   steps {
