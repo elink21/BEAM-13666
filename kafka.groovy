@@ -30,7 +30,7 @@ job(jobName) {
   String kubeconfig = ""
   Kubernetes k8s = Kubernetes.create(delegate, kubeconfig, namespace)
 
-  String kafkaDir = "$WORKSPACE/kafka-cluster"
+  String kafkaDir = "$WORKSPACE/kafka-cluster/"
 
   // Select available ports for services and avoid collisions
   steps {
@@ -38,12 +38,12 @@ job(jobName) {
     
     (0..2).each { service -> 
 
-    (service==0) ?shell("echo zero-index"): shell("echo \$KAFKA_SERVICE_PORT_${service} ---- \$NEXT_KAFKA_SERVICE_PORT_${service}")
+    (service==0) ?shell("echo zero-index"): shell("echo \$KAFKA_SERVICE_PORT_${service} ---- \$NEXT_PORT")
     k8s.availablePort(service==0? configuredPorts[service]: "\$NEXT_PORT", 
     HIGH_RANGE_PORT, "KAFKA_SERVICE_PORT_$service")
             
       shell("sed -i -e s/${configuredPorts[service]}/\$KAFKA_SERVICE_PORT_$service/ \
-            $WORKSPACE/outside-${service}.yaml")
+            $WORKSPACE/kafka-cluster/04-outside-services/outside-${service}.yml")
       
       shell("cat ${kafkaDir}/outside-${service}.yaml")
     }
