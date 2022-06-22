@@ -45,7 +45,6 @@ job(jobName) {
       shell("sed -i -e s/${configuredPorts[service]}/\$KAFKA_SERVICE_PORT_$service/ \
             $WORKSPACE/kafka-cluster/04-outside-services/outside-${service}.yml")
       
-      shell("cat ${kafkaDir}/outside-${service}.yaml")
     }
 
   }
